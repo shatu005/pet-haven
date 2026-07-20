@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pet Details | Paw Haven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="page-loader" aria-hidden="true"><div class="spinner"></div></div>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">🐾 Paw<span>Haven</span></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pets.html">Pets</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="adopt.html">Adopt</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" id="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="pet-details">
+      <div class="container">
+        <div class="details-grid">
+          <!-- Gallery -->
+          <div class="details-gallery">
+            <img id="detail-main-image" class="detail-main-image" src="" alt="" />
+            <div class="thumbnail-row" id="detail-thumbnails"></div>
+          </div>
+
+          <!-- Info -->
+          <div class="details-info">
+            <div class="detail-header">
+              <div>
+                <h1 id="detail-name">Loading...</h1>
+                <p id="detail-breed" style="margin:0; font-family: var(--font-heading); color: var(--text-light);"></p>
+              </div>
+              <span class="detail-fee-tag" id="detail-fee"></span>
+            </div>
+
+            <ul class="detail-tags">
+              <li id="detail-age"></li>
+              <li id="detail-gender"></li>
+              <li id="detail-vaccinated"></li>
+              <li id="detail-location"></li>
+            </ul>
+
+            <p id="detail-description"></p>
+
+            <div class="detail-info-grid">
+              <div><span>Weight</span><strong id="detail-weight"></strong></div>
+              <div><span>Good with children</span><strong id="detail-kids"></strong></div>
+              <div><span>Good with other pets</span><strong id="detail-pets"></strong></div>
+              <div><span>Medical History</span><strong id="detail-medical"></strong></div>
+            </div>
+
+            <h3>Personality Traits</h3>
+            <ul class="detail-tags" id="detail-traits"></ul>
+
+            <div class="detail-actions">
+              <a href="#" id="detail-adopt-btn" class="btn btn--primary btn--lg">Adopt Me</a>
+              <button id="detail-favorite-btn" class="favorite-btn" aria-label="Save to favorites" aria-pressed="false">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 21s-6.7-4.35-9.3-8.1C1 10.2 1.7 6.9 4.6 5.4c2.3-1.2 4.7-.4 6 1.4l1.4 1.9 1.4-1.9c1.3-1.8 3.7-2.6 6-1.4 2.9 1.5 3.6 4.8 1.9 7.5C18.7 16.65 12 21 12 21z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-pets">
+          <div class="section-heading">
+            <span class="eyebrow">You Might Also Like</span>
+            <h2>Related Pets</h2>
+          </div>
+          <div class="pets-grid" id="related-pets-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="grid footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">🐾 Paw<span>Haven</span></a>
+          <p>Connecting healthy, happy pets with loving families since 2016.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="Twitter">𝕏</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pets.html">Pets</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="adopt.html">Adopt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>Plot 12, Adoption Way, Abuja</li>
+            <li>hello@pawhaven.org</li>
+            <li>+234 800 123 4567</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p>Get heartwarming adoption stories and new pet alerts.</p>
+          <form class="newsletter-form" novalidate>
+            <label class="sr-only" for="newsletter-email-3">Email address</label>
+            <input type="email" id="newsletter-email-3" placeholder="Your email address" required />
+            <button type="submit" class="btn btn--primary">Join</button>
+          </form>
+          <p class="newsletter-message"></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Paw Haven. All rights reserved.</p>
+        <p>Made with 🧡 for pets everywhere.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="back-to-top" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

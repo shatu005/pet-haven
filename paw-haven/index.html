@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paw Haven | Find Your Forever Friend</title>
+  <meta name="description" content="Paw Haven helps loving families adopt healthy, vaccinated pets from verified shelters. Browse dogs, cats, rabbits and birds waiting for a home." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Page loading spinner -->
+  <div id="page-loader" aria-hidden="true"><div class="spinner"></div></div>
+
+  <!-- =========================== HEADER / NAV =========================== -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">🐾 Paw<span>Haven</span></a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pets.html">Pets</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="adopt.html">Adopt</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="search-box" id="search-box">
+          <input type="search" placeholder="Search pets..." aria-label="Search pets" id="nav-search-input" />
+          <button class="icon-btn" id="search-toggle" aria-label="Toggle search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+        <button class="icon-btn" id="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================== HERO ================================ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">250+ Happy Tails and Counting</span>
+          <h1>Find Your <span class="highlight">Forever Friend</span></h1>
+          <p>Every pet deserves a loving home, and every home deserves a little more joy. Browse healthy, vaccinated pets from verified shelters and start your adoption journey today.</p>
+          <div class="hero-actions">
+            <a href="adopt.html" class="btn btn--primary btn--lg">Adopt Now</a>
+            <a href="pets.html" class="btn btn--outline btn--lg">Browse Pets</a>
+          </div>
+        </div>
+        <div class="hero-image-wrap">
+          <img class="hero-image" src="https://picsum.photos/seed/pawhavenhero/900/700" alt="A happy adopted dog and cat resting together" />
+          <div class="hero-floating-card">
+            <span class="icon-circle">✔</span>
+            <div>
+              <strong data-count-to="150">0+</strong>
+              <span>Successful Adoptions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= FEATURED PETS ============================ -->
+    <section id="featured" aria-labelledby="featured-heading">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Meet the Pets</span>
+          <h2 id="featured-heading">Featured Companions</h2>
+          <p>A few of our wonderful pets who are ready to meet their new family.</p>
+        </div>
+        <div class="pets-grid" id="featured-pets-grid"></div>
+        <div class="featured-footer">
+          <a href="pets.html" class="btn btn--accent btn--lg">See All Pets</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= RECENTLY VIEWED (bonus) ===================== -->
+    <section id="recently-viewed" class="section--tint">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Welcome Back</span>
+          <h2>Recently Viewed</h2>
+          <p>Pick up right where you left off.</p>
+        </div>
+        <div class="pets-grid" id="recently-viewed-grid"></div>
+      </div>
+    </section>
+
+    <!-- ========================= WHY ADOPT FROM US ========================= -->
+    <section id="why-us" class="section--tint" aria-labelledby="why-heading">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Why Paw Haven</span>
+          <h2 id="why-heading">Why Adopt From Us</h2>
+          <p>We make adoption safe, transparent, and full of heart.</p>
+        </div>
+        <div class="grid features-grid">
+          <div class="feature-card reveal">
+            <div class="icon-circle">🩺</div>
+            <h3>Healthy Pets</h3>
+            <p>Every pet is vet-checked, vaccinated, and given a clean bill of health before adoption.</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="icon-circle">🏠</div>
+            <h3>Verified Shelters</h3>
+            <p>We partner only with licensed, inspected shelters that meet our welfare standards.</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="icon-circle">💛</div>
+            <h3>Lifetime Support</h3>
+            <p>Our team stays with you after adoption with training tips, vet referrals, and advice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= HOW ADOPTION WORKS ========================= -->
+    <section id="how-it-works" aria-labelledby="how-heading">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The Process</span>
+          <h2 id="how-heading">How Adoption Works</h2>
+          <p>Four simple steps between you and your new best friend.</p>
+        </div>
+        <div class="grid steps-grid">
+          <div class="step-card reveal">
+            <div class="step-number">1</div>
+            <h3>Browse Pets</h3>
+            <p>Explore profiles of pets waiting for a home and filter by species, age, and more.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-number">2</div>
+            <h3>Meet Your Companion</h3>
+            <p>Schedule a visit to a partner shelter and spend time getting to know your favorite pet.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-number">3</div>
+            <h3>Complete Adoption</h3>
+            <p>Fill out our simple application so we can match you with the right pet for your home.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-number">4</div>
+            <h3>Bring Them Home</h3>
+            <p>Pick up your new companion along with care guides and our ongoing support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ TESTIMONIALS ============================ -->
+    <section id="testimonials" class="section--tint" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Happy Families</span>
+          <h2 id="testimonials-heading">What Our Adopters Say</h2>
+        </div>
+        <div class="grid testimonials-grid">
+          <div class="testimonial-card reveal">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p>"The team at Paw Haven made the whole process feel personal and easy. Buddy has been the best addition to our family."</p>
+            <div class="testimonial-person">
+              <img src="https://picsum.photos/seed/reviewer1/100/100" alt="Portrait of Amaka O." />
+              <div><strong>Amaka O.</strong><span>Adopted Buddy</span></div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p>"I loved that every pet came with a full medical history. It gave me total peace of mind adopting Willow."</p>
+            <div class="testimonial-person">
+              <img src="https://picsum.photos/seed/reviewer2/100/100" alt="Portrait of Daniel K." />
+              <div><strong>Daniel K.</strong><span>Adopted Willow</span></div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p>"Their lifetime support line has answered every question we've had. Highly recommend Paw Haven to any first-time owner."</p>
+            <div class="testimonial-person">
+              <img src="https://picsum.photos/seed/reviewer3/100/100" alt="Portrait of Grace T." />
+              <div><strong>Grace T.</strong><span>Adopted Sunny</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CTA BANNER ============================= -->
+    <section>
+      <div class="container">
+        <div class="cta-banner reveal">
+          <h2>Ready to Change a Life?</h2>
+          <p>Thousands of pets are waiting for a home just like yours. Your forever friend is one click away.</p>
+          <a href="pets.html" class="btn btn--white btn--lg">Find Your Companion</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============================== FOOTER ================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="grid footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">🐾 Paw<span>Haven</span></a>
+          <p>Connecting healthy, happy pets with loving families since 2016.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="Twitter">𝕏</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pets.html">Pets</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="adopt.html">Adopt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>Plot 12, Adoption Way, Abuja</li>
+            <li>hello@pawhaven.org</li>
+            <li>+234 800 123 4567</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p>Get heartwarming adoption stories and new pet alerts.</p>
+          <form class="newsletter-form" novalidate>
+            <label class="sr-only" for="newsletter-email">Email address</label>
+            <input type="email" id="newsletter-email" placeholder="Your email address" required />
+            <button type="submit" class="btn btn--primary">Join</button>
+          </form>
+          <p class="newsletter-message"></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Paw Haven. All rights reserved.</p>
+        <p>Made with 🧡 for pets everywhere.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="back-to-top" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Toggle the inline nav search box (kept out of shared script.js since it's home-page-only markup id).
+    document.getElementById("search-toggle").addEventListener("click", () => {
+      document.getElementById("search-box").classList.toggle("is-open");
+      document.getElementById("nav-search-input").focus();
+    });
+    document.getElementById("nav-search-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && e.target.value.trim()) {
+        window.location.href = `pets.html?search=${encodeURIComponent(e.target.value.trim())}`;
+      }
+    });
+  </script>
+</body>
+</html>

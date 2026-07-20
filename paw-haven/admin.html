@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin | Paw Haven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  /* Admin-only styles, scoped to this page */
+  body { background: var(--secondary); }
+  .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 24px; }
+  .admin-login { max-width: 380px; margin: 8rem auto; background: var(--bg); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center; }
+  .admin-login input { width: 100%; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin: 1rem 0; }
+  .admin-tabs { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
+  .admin-tabs button { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font-family: var(--font-heading); font-weight: 600; cursor: pointer; }
+  .admin-tabs button.is-active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .admin-tabs .count { background: var(--secondary); border-radius: 999px; padding: 2px 9px; font-size: 0.75rem; margin-left: 6px; }
+  .admin-tabs button.is-active .count { background: rgba(255,255,255,0.25); }
+  .admin-panel { display: none; background: var(--bg); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+  .admin-panel.is-active { display: block; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-family: var(--font-heading); }
+  .row-actions { display: flex; gap: 8px; white-space: nowrap; }
+  .row-actions button { padding: 6px 12px; border-radius: 8px; border: none; font-size: 0.8rem; cursor: pointer; font-family: var(--font-heading); font-weight: 600; }
+  .btn-edit { background: var(--accent); color: #fff; }
+  .btn-delete { background: #e74c3c; color: #fff; }
+  .pet-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.2rem; }
+  .pet-form-grid .full { grid-column: 1 / -1; }
+  .pet-form-grid input, .pet-form-grid select, .pet-form-grid textarea { padding: 10px; border-radius: 8px; border: 1px solid var(--border); width: 100%; font-family: inherit; }
+  .pet-form-grid label { font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px; font-family: var(--font-heading); }
+  .empty-row td { text-align: center; color: var(--text-light); padding: 2rem; }
+  .status-msg { font-size: 0.85rem; margin: 0.5rem 0; min-height: 1.2em; }
+  .status-msg.error { color: #e74c3c; }
+  .status-msg.success { color: var(--success); }
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .checkbox-inline { display: flex; align-items: center; gap: 8px; }
+  .checkbox-inline input { width: auto; }
+</style>
+</head>
+<body>
+
+<div class="admin-wrap">
+  <div class="top-bar">
+    <h1 style="margin:0;">🐾 Paw Haven Admin</h1>
+    <a href="index.html" style="font-family: var(--font-heading); font-weight:600; color: var(--primary);">← Back to site</a>
+  </div>
+
+  <!-- LOGIN SCREEN -->
+  <div class="admin-login" id="admin-login">
+    <h2>Admin Login</h2>
+    <input type="password" id="admin-password" placeholder="Enter password" />
+    <p id="login-error" class="status-msg error" style="display:none;">Incorrect password.</p>
+    <button class="btn btn--primary btn--block" id="login-btn">Log In</button>
+  </div>
+
+  <!-- ADMIN DASHBOARD (hidden until logged in) -->
+  <div id="admin-dashboard" style="display:none;">
+    <div class="admin-tabs">
+      <button data-tab="pets" class="is-active">Manage Pets <span class="count" id="pets-count">0</span></button>
+      <button data-tab="applications">Applications <span class="count" id="applications-count">0</span></button>
+      <button data-tab="messages">Messages <span class="count" id="messages-count">0</span></button>
+      <button id="logout-btn" style="margin-left:auto;">Log Out</button>
+    </div>
+
+    <!-- PETS TAB -->
+    <div class="admin-panel is-active" id="panel-pets">
+      <h3 id="pet-form-title">Add New Pet</h3>
+      <div class="pet-form-grid">
+        <input type="hidden" id="pet-id" />
+        <div><label>Name *</label><input id="pet-name" /></div>
+        <div><label>Species *</label>
+          <select id="pet-species"><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option></select>
+        </div>
+        <div><label>Breed</label><input id="pet-breed" /></div>
+        <div><label>Age (years, e.g. 1.5)</label><input id="pet-ageYears" type="number" step="0.1" /></div>
+        <div><label>Age Label (e.g. "2 years")</label><input id="pet-ageLabel" placeholder="2 years" /></div>
+        <div><label>Gender</label>
+          <select id="pet-gender"><option>Male</option><option>Female</option></select>
+        </div>
+        <div><label>Weight</label><input id="pet-weight" placeholder="e.g. 12 kg" /></div>
+        <div><label>Fee (₦)</label><input id="pet-fee" type="number" /></div>
+        <div><label>Vaccinated</label>
+          <select id="pet-vaccinated"><option value="true">Yes</option><option value="false">No</option></select>
+        </div>
+        <div><label>Location</label><input id="pet-location" /></div>
+        <div class="checkbox-inline"><input type="checkbox" id="pet-goodkids" checked /><label for="pet-goodkids" style="margin:0;">Good with children</label></div>
+        <div class="checkbox-inline"><input type="checkbox" id="pet-goodpets" checked /><label for="pet-goodpets" style="margin:0;">Good with other pets</label></div>
+        <div class="full"><label>Image URL</label><input id="pet-image" placeholder="https://picsum.photos/seed/example/700/520" /></div>
+        <div class="full"><label>Personality Traits (comma-separated)</label><input id="pet-personality" placeholder="Playful, Affectionate, Loyal" /></div>
+        <div class="full"><label>Medical History</label><textarea id="pet-medical" rows="2"></textarea></div>
+        <div class="full"><label>Description</label><textarea id="pet-description" rows="3"></textarea></div>
+      </div>
+      <p class="status-msg" id="pet-form-status"></p>
+      <button class="btn btn--primary" id="save-pet-btn">Save Pet</button>
+      <button class="btn btn--outline" id="clear-pet-form-btn">Clear Form</button>
+
+      <hr style="margin:2rem 0; border-color: var(--border);" />
+
+      <table>
+        <thead><tr><th>Name</th><th>Species</th><th>Breed</th><th>Fee</th><th>Vaccinated</th><th>Actions</th></tr></thead>
+        <tbody id="pets-table-body"></tbody>
+      </table>
+    </div>
+
+    <!-- APPLICATIONS TAB -->
+    <div class="admin-panel" id="panel-applications">
+      <h3>Adoption Applications</h3>
+      <table>
+        <thead><tr><th>Date</th><th>Pet</th><th>Applicant</th><th>Contact</th><th>Details</th><th></th></tr></thead>
+        <tbody id="applications-table-body"></tbody>
+      </table>
+    </div>
+
+    <!-- MESSAGES TAB -->
+    <div class="admin-panel" id="panel-messages">
+      <h3>Contact Messages</h3>
+      <table>
+        <thead><tr><th>Date</th><th>From</th><th>Subject</th><th>Message</th><th></th></tr></thead>
+        <tbody id="messages-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = "";
+
+/* ---------------------------- Small helpers ---------------------------- */
+async function api(path, options = {}) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    ...options,
+    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+  });
+  if (res.status === 401) {
+    showLogin();
+    throw new Error("Not authenticated");
+  }
+  return res;
+}
+function fmtDate(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString() + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str ?? "";
+  return div.innerHTML;
+}
+
+/* ------------------------------ Auth flow ------------------------------ */
+const loginScreen = document.getElementById("admin-login");
+const dashboard = document.getElementById("admin-dashboard");
+
+function showLogin() {
+  loginScreen.style.display = "block";
+  dashboard.style.display = "none";
+}
+function showDashboard() {
+  loginScreen.style.display = "none";
+  dashboard.style.display = "block";
+  refreshAll();
+}
+
+async function checkAuth() {
+  const res = await fetch(`${API_BASE}/api/admin/check`);
+  const data = await res.json();
+  if (data.is_admin) showDashboard();
+  else showLogin();
+}
+
+document.getElementById("login-btn").addEventListener("click", async () => {
+  const password = document.getElementById("admin-password").value;
+  const res = await fetch(`${API_BASE}/api/admin/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password }),
+  });
+  if (res.ok) {
+    document.getElementById("login-error").style.display = "none";
+    showDashboard();
+  } else {
+    document.getElementById("login-error").style.display = "block";
+  }
+});
+document.getElementById("admin-password").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("login-btn").click();
+});
+
+document.getElementById("logout-btn").addEventListener("click", async () => {
+  await fetch(`${API_BASE}/api/admin/logout`, { method: "POST" });
+  showLogin();
+});
+
+/* ------------------------------ Tab switching --------------------------- */
+document.querySelectorAll(".admin-tabs button[data-tab]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".admin-tabs button[data-tab]").forEach((b) => b.classList.remove("is-active"));
+    document.querySelectorAll(".admin-panel").forEach((p) => p.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    document.getElementById("panel-" + btn.dataset.tab).classList.add("is-active");
+  });
+});
+
+function refreshAll() {
+  renderPetsTable();
+  renderApplicationsTable();
+  renderMessagesTable();
+}
+
+/* -------------------------------- Pets ---------------------------------- */
+async function renderPetsTable() {
+  const res = await api("/api/pets");
+  const pets = await res.json();
+  document.getElementById("pets-count").textContent = pets.length;
+
+  const body = document.getElementById("pets-table-body");
+  body.innerHTML = pets.length
+    ? pets.map((p) => `
+      <tr>
+        <td>${escapeHtml(p.name)}</td>
+        <td>${escapeHtml(p.species)}</td>
+        <td>${escapeHtml(p.breed || "")}</td>
+        <td>₦${p.fee ?? 0}</td>
+        <td>${p.vaccinated ? "✔ Yes" : "No"}</td>
+        <td class="row-actions">
+          <button class="btn-edit" data-edit='${escapeHtml(JSON.stringify(p))}'>Edit</button>
+          <button class="btn-delete" data-delete="${p.id}">Delete</button>
+        </td>
+      </tr>`).join("")
+    : `<tr class="empty-row"><td colspan="6">No pets yet — add one above.</td></tr>`;
+
+  body.querySelectorAll("[data-edit]").forEach((btn) =>
+    btn.addEventListener("click", () => loadPetIntoForm(JSON.parse(btn.getAttribute("data-edit")))));
+  body.querySelectorAll("[data-delete]").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      if (!confirm("Delete this pet? This cannot be undone.")) return;
+      await api(`/api/pets/${btn.dataset.delete}`, { method: "DELETE" });
+      renderPetsTable();
+    }));
+}
+
+function loadPetIntoForm(pet) {
+  document.getElementById("pet-form-title").textContent = "Edit Pet: " + pet.name;
+  document.getElementById("pet-id").value = pet.id;
+  document.getElementById("pet-name").value = pet.name || "";
+  document.getElementById("pet-species").value = pet.species || "Dog";
+  document.getElementById("pet-breed").value = pet.breed || "";
+  document.getElementById("pet-ageYears").value = pet.age_years ?? "";
+  document.getElementById("pet-ageLabel").value = pet.age_label || "";
+  document.getElementById("pet-gender").value = pet.gender || "Male";
+  document.getElementById("pet-weight").value = pet.weight || "";
+  document.getElementById("pet-fee").value = pet.fee ?? "";
+  document.getElementById("pet-vaccinated").value = String(!!pet.vaccinated);
+  document.getElementById("pet-location").value = pet.location || "";
+  document.getElementById("pet-goodkids").checked = !!pet.good_with_kids;
+  document.getElementById("pet-goodpets").checked = !!pet.good_with_pets;
+  document.getElementById("pet-image").value = pet.image || "";
+  document.getElementById("pet-personality").value = pet.personality || "";
+  document.getElementById("pet-medical").value = pet.medical_history || "";
+  document.getElementById("pet-description").value = pet.description || "";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function clearPetForm() {
+  document.getElementById("pet-form-title").textContent = "Add New Pet";
+  ["pet-id", "pet-name", "pet-breed", "pet-ageYears", "pet-ageLabel", "pet-weight",
+   "pet-fee", "pet-location", "pet-image", "pet-personality", "pet-medical", "pet-description"]
+    .forEach((id) => (document.getElementById(id).value = ""));
+  document.getElementById("pet-species").value = "Dog";
+  document.getElementById("pet-gender").value = "Male";
+  document.getElementById("pet-vaccinated").value = "true";
+  document.getElementById("pet-goodkids").checked = true;
+  document.getElementById("pet-goodpets").checked = true;
+  document.getElementById("pet-form-status").textContent = "";
+}
+document.getElementById("clear-pet-form-btn").addEventListener("click", clearPetForm);
+
+document.getElementById("save-pet-btn").addEventListener("click", async () => {
+  const statusEl = document.getElementById("pet-form-status");
+  const existingId = document.getElementById("pet-id").value;
+  const id = existingId || ("p" + Date.now());
+
+  const name = document.getElementById("pet-name").value.trim();
+  const species = document.getElementById("pet-species").value;
+  if (!name) {
+    statusEl.textContent = "Name is required.";
+    statusEl.className = "status-msg error";
+    return;
+  }
+
+  const payload = {
+    id, name, species,
+    breed: document.getElementById("pet-breed").value,
+    age_years: parseFloat(document.getElementById("pet-ageYears").value) || 0,
+    age_label: document.getElementById("pet-ageLabel").value,
+    gender: document.getElementById("pet-gender").value,
+    weight: document.getElementById("pet-weight").value,
+    fee: parseInt(document.getElementById("pet-fee").value, 10) || 0,
+    vaccinated: document.getElementById("pet-vaccinated").value === "true",
+    location: document.getElementById("pet-location").value,
+    good_with_kids: document.getElementById("pet-goodkids").checked,
+    good_with_pets: document.getElementById("pet-goodpets").checked,
+    image: document.getElementById("pet-image").value,
+    personality: document.getElementById("pet-personality").value,
+    medical_history: document.getElementById("pet-medical").value,
+    description: document.getElementById("pet-description").value,
+  };
+
+  try {
+    const res = await api(existingId ? `/api/pets/${id}` : "/api/pets", {
+      method: existingId ? "PUT" : "POST",
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error((await res.json()).error || "Save failed");
+    statusEl.textContent = existingId ? "Pet updated." : "Pet added.";
+    statusEl.className = "status-msg success";
+    clearPetForm();
+    renderPetsTable();
+  } catch (err) {
+    statusEl.textContent = err.message;
+    statusEl.className = "status-msg error";
+  }
+});
+
+/* --------------------------- Applications -------------------------------- */
+async function renderApplicationsTable() {
+  const res = await api("/api/applications");
+  const apps = await res.json();
+  document.getElementById("applications-count").textContent = apps.length;
+
+  const body = document.getElementById("applications-table-body");
+  body.innerHTML = apps.length
+    ? apps.map((a) => `
+      <tr>
+        <td>${fmtDate(a.created_at)}</td>
+        <td>${escapeHtml(a.pet_name || "—")}</td>
+        <td>${escapeHtml(a.full_name)}</td>
+        <td>${escapeHtml(a.email)}<br />${escapeHtml(a.phone || "")}</td>
+        <td>
+          <strong>Address:</strong> ${escapeHtml(a.address || "—")}<br/>
+          <strong>Occupation:</strong> ${escapeHtml(a.occupation || "—")}<br/>
+          <strong>House type:</strong> ${escapeHtml(a.house_type || "—")}<br/>
+          <strong>Owns pets now:</strong> ${escapeHtml(a.current_pets || "—")} &nbsp;
+          <strong>Owned before:</strong> ${escapeHtml(a.past_pets || "—")}<br/>
+          <strong>Preferred contact:</strong> ${escapeHtml(a.contact_method || "—")}<br/>
+          <strong>Reason:</strong> ${escapeHtml(a.reason || "—")}
+        </td>
+        <td><button class="btn-delete" data-delete-app="${a.id}">Delete</button></td>
+      </tr>`).join("")
+    : `<tr class="empty-row"><td colspan="6">No applications yet.</td></tr>`;
+
+  body.querySelectorAll("[data-delete-app]").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      if (!confirm("Delete this application?")) return;
+      await api(`/api/applications/${btn.dataset.deleteApp}`, { method: "DELETE" });
+      renderApplicationsTable();
+    }));
+}
+
+/* ----------------------------- Messages ---------------------------------- */
+async function renderMessagesTable() {
+  const res = await api("/api/messages");
+  const msgs = await res.json();
+  document.getElementById("messages-count").textContent = msgs.length;
+
+  const body = document.getElementById("messages-table-body");
+  body.innerHTML = msgs.length
+    ? msgs.map((m) => `
+      <tr>
+        <td>${fmtDate(m.created_at)}</td>
+        <td>${escapeHtml(m.name)}<br />${escapeHtml(m.email)}</td>
+        <td>${escapeHtml(m.subject || "")}</td>
+        <td>${escapeHtml(m.message || "")}</td>
+        <td><button class="btn-delete" data-delete-msg="${m.id}">Delete</button></td>
+      </tr>`).join("")
+    : `<tr class="empty-row"><td colspan="5">No messages yet.</td></tr>`;
+
+  body.querySelectorAll("[data-delete-msg]").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      if (!confirm("Delete this message?")) return;
+      await api(`/api/messages/${btn.dataset.deleteMsg}`, { method: "DELETE" });
+      renderMessagesTable();
+    }));
+}
+
+/* --------------------------------- Boot ----------------------------------- */
+checkAuth();
+</script>
+</body>
+</html>

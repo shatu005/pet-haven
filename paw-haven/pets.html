@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Pets | Paw Haven</title>
+  <meta name="description" content="Browse dogs, cats, rabbits and birds available for adoption at Paw Haven. Filter by category, age, gender and vaccination status." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="page-loader" aria-hidden="true"><div class="spinner"></div></div>
+
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">🐾 Paw<span>Haven</span></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pets.html">Pets</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="adopt.html">Adopt</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" id="dark-mode-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">14 Pets Waiting</span>
+        <h1>Browse Available Pets</h1>
+        <p>Use search and filters to find the companion who fits your home and lifestyle.</p>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container">
+        <!-- Filter Bar -->
+        <div class="filter-bar" role="search" aria-label="Pet filters">
+          <div>
+            <label class="sr-only" for="pet-search">Search pets</label>
+            <input type="search" id="pet-search" placeholder="Search by name or breed..." />
+          </div>
+          <div>
+            <label class="sr-only" for="filter-category">Category</label>
+            <select id="filter-category">
+              <option value="all">All Categories</option>
+              <option value="Dog">Dogs</option>
+              <option value="Cat">Cats</option>
+              <option value="Rabbit">Rabbits</option>
+              <option value="Bird">Birds</option>
+            </select>
+          </div>
+          <div>
+            <label class="sr-only" for="filter-age">Age</label>
+            <select id="filter-age">
+              <option value="all">Any Age</option>
+              <option value="baby">Baby (under 1yr)</option>
+              <option value="young">Young (1–2yrs)</option>
+              <option value="adult">Adult (2–5yrs)</option>
+              <option value="senior">Senior (5yrs+)</option>
+            </select>
+          </div>
+          <div>
+            <label class="sr-only" for="filter-gender">Gender</label>
+            <select id="filter-gender">
+              <option value="all">Any Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div>
+            <label class="sr-only" for="filter-vaccinated">Vaccinated</label>
+            <select id="filter-vaccinated">
+              <option value="all">Vaccinated: Any</option>
+              <option value="yes">Vaccinated Only</option>
+              <option value="no">Not Yet Vaccinated</option>
+            </select>
+          </div>
+          <div>
+            <label class="sr-only" for="sort-select">Sort</label>
+            <select id="sort-select">
+              <option value="default">Sort: Default</option>
+              <option value="name-asc">Name (A–Z)</option>
+              <option value="age-asc">Age (Youngest)</option>
+              <option value="fee-asc">Fee (Low–High)</option>
+              <option value="fee-desc">Fee (High–Low)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-row">
+          <span id="results-count">14 pets found</span>
+        </div>
+
+        <div class="pets-grid" id="pets-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="grid footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">🐾 Paw<span>Haven</span></a>
+          <p>Connecting healthy, happy pets with loving families since 2016.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="Twitter">𝕏</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pets.html">Pets</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="adopt.html">Adopt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>Plot 12, Adoption Way, Abuja</li>
+            <li>hello@pawhaven.org</li>
+            <li>+234 800 123 4567</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p>Get heartwarming adoption stories and new pet alerts.</p>
+          <form class="newsletter-form" novalidate>
+            <label class="sr-only" for="newsletter-email-2">Email address</label>
+            <input type="email" id="newsletter-email-2" placeholder="Your email address" required />
+            <button type="submit" class="btn btn--primary">Join</button>
+          </form>
+          <p class="newsletter-message"></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Paw Haven. All rights reserved.</p>
+        <p>Made with 🧡 for pets everywhere.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="back-to-top" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
